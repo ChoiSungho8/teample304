@@ -7,9 +7,8 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 루트 컨텍스트: 다른 모든 웹 구성 요소에 표시되는 공유 리소스를 정의합니다. -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-	
 		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
@@ -19,17 +18,29 @@
 		<property name="password" value="tp2023091"></property>
 	</bean>
 
+
 	<!-- HikariCP configuration -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-	
+
+	<!-- sqlSessionFactory빈 정의, dataSource빈을 의존성 주입하여 sqlSessionFactory 객체 생성, SQL 세션 생성   -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	
+	<!-- SqlSessionTemplate : sqlSession을 스프링 빈으로 감싸서 사용할 수 있게 해주는 클래스 -->
+	<!-- sqlSession을 정의하고 sqlSessionFactory 빈을 인자로 전달하여 SqlSessionTemplate 객체 생성, DB 상호 작용 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
 		
-	<!-- sql 처리를 mapper에서 찾는다. -->
+	<!-- @Repository를 사용하기 위해 경로 지정 : sql 처리용 -->
 	<mybatis-spring:scan base-package="com.teample304.mapper"/>
 	
+	
+	<!-- @Service를 사용하기 위해 경로 지정 -->
 	<context:component-scan base-package="com.teample304.service"/>
+	
 </beans>

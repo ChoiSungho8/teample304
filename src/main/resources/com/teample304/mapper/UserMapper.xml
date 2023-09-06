@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml을 활용한 공통 코드 -->
+
+<!-- 유저 아이디, 비밀번호 검사 -->
+<!-- 호출될 메서드의 인터페이스명 일치 -->
+<!-- id=메서드명, resultType=리턴 -->
+<!-- CDATA : 쿼리 안에 부등호 연산 사용 -->
+<mapper namespace="com.teample304.mapper.UserMapper">
+	<select id="select_user_by_userid_and_userpw" parameterType="com.teample304.spring.dto.UserDTO" resultType="com.teample304.spring.dto.UserDTO">
+  	<![CDATA[
+  	select userid, userpw, username, userphone from MEMBER where userid=#{userid} and userpw=#{userpw}
+  	]]>
+	</select>
+</mapper>
