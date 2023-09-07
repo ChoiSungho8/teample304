@@ -1,4 +1,4 @@
-- È¸¿ø
+-- íšŒì›
 create table member(
       userid varchar2(50),
       userpw varchar2(100) not null,
@@ -8,46 +8,46 @@ create table member(
       updatedate date default sysdate
 );
 
--- ±âº»Å° Á¦¾à Á¶°Ç¸í : pk_member_userid, --È¸¿ø¿¡ °ü·ÃµÈ ¸ğµç Á¤º¸ »èÁ¦
+-- ê¸°ë³¸í‚¤ ì œì•½ ì¡°ê±´ëª… : pk_member_userid, --íšŒì›ì— ê´€ë ¨ëœ ëª¨ë“  ì •ë³´ ì‚­ì œ
 alter table member add constraint pk_member_userid primary key (userid);
 
--- È¸¿ø°¡ÀÔ Äõ¸® È®ÀÎ
-insert into member(userid, userpw, username, userphone) values('Å×½ºÆ®', '1234', 'Å×½ºÆ®', '1234');
-insert into member(userid, userpw, username, userphone) values('Å×½ºÆ®2', '1234', 'Å×½ºÆ®2', '1234');
-insert into member(userid, userpw, username, userphone) values('Å×½ºÆ®3', '1234', 'Å×½ºÆ®3', '1234');
-insert into member(userid, userpw, username, userphone) values('Å×½ºÆ®4', '1234', 'Å×½ºÆ®4', '1234');
+-- íšŒì›ê°€ì… ì¿¼ë¦¬ í™•ì¸
+insert into member(userid, userpw, username, userphone) values('í…ŒìŠ¤íŠ¸', '1234', 'í…ŒìŠ¤íŠ¸', '1234');
+insert into member(userid, userpw, username, userphone) values('í…ŒìŠ¤íŠ¸2', '1234', 'í…ŒìŠ¤íŠ¸2', '1234');
+insert into member(userid, userpw, username, userphone) values('í…ŒìŠ¤íŠ¸3', '1234', 'í…ŒìŠ¤íŠ¸3', '1234');
+insert into member(userid, userpw, username, userphone) values('í…ŒìŠ¤íŠ¸4', '1234', 'í…ŒìŠ¤íŠ¸4', '1234');
 select * from MEMBER;
 
-- °Ô½ÃÆÇ
--- °Ô½ÃÆÇ ÀÏ·Ã¹øÈ£ »ı¼º
+-- ê²Œì‹œíŒ
+-- ê²Œì‹œíŒ ì¼ë ¨ë²ˆí˜¸ ìƒì„±
 create sequence seq_board;
 
 create table board (
-  bno number(10,0),--°Ô½Ã±Û ¹øÈ£
-  title varchar2(200) not null,--°Ô½Ã±Û Á¦¸ñ
-  content varchar2(2000) not null,--°Ô½Ã±Û ³»¿ë
-  userid varchar2(50) not null,--°Ô½Ã±Û ÀÛ¼ºÀÚ
-  visitcount number(10) not null,--Á¶È¸¼ö
-  regdate date default sysdate,--°Ô½Ã±Û ÃÖÁ¶ ÀÛ¼ºÀÏ
-  updatedate date default sysdate--°Ô½Ã±Û ¼öÁ¤ÀÏ
+  bno number(10,0),--ê²Œì‹œê¸€ ë²ˆí˜¸
+  title varchar2(200) not null,--ê²Œì‹œê¸€ ì œëª©
+  content varchar2(2000) not null,--ê²Œì‹œê¸€ ë‚´ìš©
+  userid varchar2(50) not null,--ê²Œì‹œê¸€ ì‘ì„±ì
+  visitcount number(10) not null,--ì¡°íšŒìˆ˜
+  regdate date default sysdate,--ê²Œì‹œê¸€ ìµœì¡° ì‘ì„±ì¼
+  updatedate date default sysdate--ê²Œì‹œê¸€ ìˆ˜ì •ì¼
 );
 
--- ±âº»Å° Á¦¾à Á¶°Ç¸í : pk_board_bno
+-- ê¸°ë³¸í‚¤ ì œì•½ ì¡°ê±´ëª… : pk_board_bno
 alter table board add constraint pk_board_bno primary key (bno);
--- ÂüÁ¶Å° Á¦¾à Á¶°Ç¸í : pk_member_userid
+-- ì°¸ì¡°í‚¤ ì œì•½ ì¡°ê±´ëª… : pk_member_userid
 alter table board add constraint fk_member_userid foreign key (userid) references member(userid) on delete cascade;
 
 
--- ´õ¹Ì µ¥ÀÌÅÍ Ãß°¡
-insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, '´õ¹Ì °Ô½Ã±Û Á¦¸ñ', '´õ¹Ì °Ô½Ã±Û ³»¿ë', 'Å×½ºÆ®', 0);
-insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, '´õ¹Ì °Ô½Ã±Û Á¦¸ñ2', '´õ¹Ì °Ô½Ã±Û ³»¿ë2', 'Å×½ºÆ®2', 0);
-insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, '´õ¹Ì °Ô½Ã±Û Á¦¸ñ3', '´õ¹Ì °Ô½Ã±Û ³»¿ë3', 'Å×½ºÆ®3', 0);
-insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, '´õ¹Ì °Ô½Ã±Û Á¦¸ñ4', '´õ¹Ì °Ô½Ã±Û ³»¿ë4', 'Å×½ºÆ®4', 0);
+-- ë”ë¯¸ ë°ì´í„° ì¶”ê°€
+insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, 'ë”ë¯¸ ê²Œì‹œê¸€ ì œëª©', 'ë”ë¯¸ ê²Œì‹œê¸€ ë‚´ìš©', 'í…ŒìŠ¤íŠ¸', 0);
+insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, 'ë”ë¯¸ ê²Œì‹œê¸€ ì œëª©2', 'ë”ë¯¸ ê²Œì‹œê¸€ ë‚´ìš©2', 'í…ŒìŠ¤íŠ¸2', 0);
+insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, 'ë”ë¯¸ ê²Œì‹œê¸€ ì œëª©3', 'ë”ë¯¸ ê²Œì‹œê¸€ ë‚´ìš©3', 'í…ŒìŠ¤íŠ¸3', 0);
+insert into board (bno, title, content, userid, visitcount) values (seq_board.nextval, 'ë”ë¯¸ ê²Œì‹œê¸€ ì œëª©4', 'ë”ë¯¸ ê²Œì‹œê¸€ ë‚´ìš©4', 'í…ŒìŠ¤íŠ¸4', 0);
 select * from board;
 
 
-- ´ñ±Û
--- ´ñ±Û ÀÏ·Ã¹øÈ£ »ı¼º
+-- ëŒ“ê¸€
+-- ëŒ“ê¸€ ì¼ë ¨ë²ˆí˜¸ ìƒì„±
 create sequence seq_reply;
 
 create table reply (
@@ -59,14 +59,14 @@ create table reply (
   updateDate date default sysdate
 );
 
--- ´ñ±Û ±âº»Å° Á¦¾à Á¶°Ç¸í : pk_reply_rno
+-- ëŒ“ê¸€ ê¸°ë³¸í‚¤ ì œì•½ ì¡°ê±´ëª… : pk_reply_rno
 alter table reply add constraint pk_reply_rno primary key (rno);
--- ´ñ±Û ÂüÁ¶Å° Á¦¾à Á¶°Ç¸í : fk_reply_board_bno
+-- ëŒ“ê¸€ ì°¸ì¡°í‚¤ ì œì•½ ì¡°ê±´ëª… : fk_reply_board_bno
 alter table reply  add constraint fk_reply_board foreign key (bno) references board (bno) on delete cascade; 
 
-insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 2, '¤»¤»', 'Å×½ºÆ®2');
-insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 2, '¤»¤»', 'Å×½ºÆ®2');
-insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 3, '¤»¤»', 'Å×½ºÆ®3');
-insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 4, '¤»¤»', 'Å×½ºÆ®4');
+insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 2, 'ã…‹ã…‹', 'í…ŒìŠ¤íŠ¸2');
+insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 2, 'ã…‹ã…‹', 'í…ŒìŠ¤íŠ¸2');
+insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 3, 'ã…‹ã…‹', 'í…ŒìŠ¤íŠ¸3');
+insert into reply (rno, bno, reply, replyer) values (seq_reply.nextval, 4, 'ã…‹ã…‹', 'í…ŒìŠ¤íŠ¸4');
 
-select userid, userpw, username, userphone from MEMBER where userid='Å×½ºÆ®' and userpw='1234';
+select userid, userpw, username, userphone from MEMBER where userid='í…ŒìŠ¤íŠ¸' and userpw='1234';
